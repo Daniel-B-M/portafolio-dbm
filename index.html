@@ -1,0 +1,332 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Daniel Bonilla · Unity Dev</title>
+  <meta name="description" content="Portfolio of Daniel Bonilla, Unity developer. Projects, resume and contact.">
+  <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet"
+    href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap">
+
+  <link rel="stylesheet" href="styles.css?v=20260717_4">
+</head>
+
+<body>
+  <a class="skip-link" href="#about">Skip to content</a>
+
+  <!-- ============================= NAV ============================= -->
+  <header class="nav" data-nav>
+    <a class="nav-logo" href="#about" aria-label="Go to homepage">DB<span class="nav-logo-dot">.</span></a>
+
+    <nav class="nav-tabs" aria-label="Portfolio sections">
+      <a class="nav-link" data-nav-link href="#about">About</a>
+      <a class="nav-link" data-nav-link href="#project-1">Tankard</a>
+      <a class="nav-link" data-nav-link href="#project-2">Mapora</a>
+      <a class="nav-link" data-nav-link href="#project-3">3D Viewer</a>
+      <a class="nav-link" data-nav-link href="#resume">Resume</a>
+      <a class="nav-link" data-nav-link href="#contact">Contact</a>
+    </nav>
+
+    <div class="nav-social">
+      <a href="https://www.linkedin.com/in/daniel-bonilla-m" target="_blank" rel="noopener">LinkedIn</a>
+      <a href="https://github.com/Daniel-B-M" target="_blank" rel="noopener">GitHub</a>
+      <a href="https://dan014.itch.io/" target="_blank" rel="noopener">itch.io</a>
+    </div>
+
+    <button class="nav-burger" data-nav-burger aria-label="Open menu" aria-expanded="false" aria-controls="nav-mobile">
+      <span></span><span></span><span></span>
+    </button>
+  </header>
+
+  <div class="nav-mobile" id="nav-mobile" data-nav-mobile aria-hidden="true">
+    <nav aria-label="Portfolio sections (mobile)">
+      <a class="nav-mobile-link" data-nav-link href="#about"><span>01</span>About</a>
+      <a class="nav-mobile-link" data-nav-link href="#project-1"><span>02</span>Tankard</a>
+      <a class="nav-mobile-link" data-nav-link href="#project-2"><span>03</span>Mapora</a>
+      <a class="nav-mobile-link" data-nav-link href="#project-3"><span>04</span>3D Viewer</a>
+      <a class="nav-mobile-link" data-nav-link href="#resume"><span>05</span>Resume</a>
+      <a class="nav-mobile-link" data-nav-link href="#contact"><span>06</span>Contact</a>
+    </nav>
+    <div class="nav-mobile-social">
+      <a href="https://www.linkedin.com/in/daniel-bonilla-m" target="_blank" rel="noopener">LinkedIn</a>
+      <a href="https://github.com/Daniel-B-M" target="_blank" rel="noopener">GitHub</a>
+      <a href="https://dan014.itch.io/" target="_blank" rel="noopener">itch.io</a>
+    </div>
+  </div>
+
+  <!-- ============================= HORIZONTAL TRACK ============================= -->
+  <main class="hscroll" data-hscroll>
+
+    <!-- ---------- ABOUT ---------- -->
+    <section class="panel panel-about" id="about" data-panel aria-label="About me">
+      <div class="about-grid panel-inner">
+        <div class="panel-inner about-inner">
+          <p class="kicker">Portfolio · 2026</p>
+          <h1 class="about-title">DANIEL<br>BONILLA</h1>
+          <p class="about-role">Unity Dev</p>
+          <p class="about-bio" data-reveal>Unity Developer passionate about gameplay programming and
+            interactive experiences.
+            I specialize in C#, Unity, and object-oriented programming, always striving to build clean systems,
+            solve technical challenges, and keep learning with every project.</p>
+          <!-- <ul class="tag-row" data-reveal>
+            <li>Unity</li>
+            <li>C#</li>
+            <li>Gameplay Programming</li>
+            <li>POO</li>
+            <li>Git</li>
+          </ul> -->
+        </div>
+        <figure class="about-portrait">
+          <img src="assets/img/daniel-portrait.jpg" alt="Portrait of Daniel Bonilla" loading="eager" decoding="async"
+            fetchpriority="high">
+          <figcaption class="about-portrait-label">Unity Dev · Daniel Bonilla</figcaption>
+        </figure>
+      </div>
+      <a class="scroll-hint" href="#project-1" aria-label="Go to the first project">
+        <span>Scroll</span>
+        <svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true">
+          <path d="M5 12h13M13 6l6 6-6 6" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"
+            stroke-linejoin="round" />
+        </svg>
+      </a>
+    </section>
+
+    <!-- ---------- PROJECT 1 ---------- -->
+    <section class="panel panel-project" id="project-1" data-panel aria-label="Tankard project">
+      <div class="project-grid panel-inner">
+        <div class="project-media">
+          <figure class="video-frame">
+            <iframe id="yt-player-1" src="https://www.youtube-nocookie.com/embed/jgUdJPHYBAA?rel=0&enablejsapi=1"
+              title="Tankard gameplay preview" loading="lazy"
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+              referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+          </figure>
+          <div class="gallery" data-gallery aria-label="Tankard image gallery">
+            <button class="gallery-thumb" data-gallery-item type="button">
+              <img src="assets/img/tankard-01.png" alt="Tankard — screenshot 1" loading="lazy" decoding="async">
+            </button>
+            <button class="gallery-thumb" data-gallery-item type="button">
+              <img src="assets/img/tankard-02.png" alt="Tankard — screenshot 2" loading="lazy" decoding="async">
+            </button>
+            <button class="gallery-thumb" data-gallery-item type="button">
+              <img src="assets/img/tankard-03.png" alt="Tankard — screenshot 3" loading="lazy" decoding="async">
+            </button>
+          </div>
+        </div>
+        <div class="project-info">
+          <p class="project-index">01</p>
+          <h2 class="project-title">Tankard</h2>
+          <p class="project-tagline">3D simulation of a medieval tavern</p>
+          <p class="project-desc" data-reveal>A medieval tavern simulation game built in Unity,
+            featuring a system for mixing drinks and delivering orders.</p>
+          <ul class="task-list" data-reveal>
+            <li>Designed and implemented drink-mixing mechanic with ScriptableObject recipes</li>
+            <li>Built NPC behavior tree for autonomous customer orders and reactions</li>
+            <li>Developed a spawn manager to handle dynamic tavern crowd flow</li>
+            <li>Created a state machine for managing game phases and events</li>
+          </ul>
+          <ul class="tag-row" data-reveal>
+            <li>Unity 3D</li>
+            <li>C#</li>
+            <li>Spawn Manager</li>
+            <li>State Machine</li>
+          </ul>
+          <div class="project-links">
+            <a href="https://drmonus.itch.io/tankard" target="_blank" rel="noopener">View on itch.io →</a>
+            <a href="https://github.com/Daniel-B-M/Orion" target="_blank" rel="noopener">Code →</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ---------- PROJECT 2 ---------- -->
+    <section class="panel panel-project" id="project-2" data-panel aria-label="Mapora project">
+      <div class="project-grid panel-inner">
+        <div class="project-media">
+          <figure class="video-frame">
+            <iframe id="yt-player-2" src="https://www.youtube-nocookie.com/embed/Tb2-RvTDehk?rel=0&enablejsapi=1"
+              title="Mapora gameplay preview" loading="lazy"
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+              referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+          </figure>
+          <div class="gallery" data-gallery aria-label="Mapora image gallery">
+            <button class="gallery-thumb" data-gallery-item type="button">
+              <img src="assets/img/mapora-01.jpg" alt="Mapora — screenshot 1" loading="lazy" decoding="async">
+            </button>
+            <button class="gallery-thumb" data-gallery-item type="button">
+              <img src="assets/img/mapora-02.jpg" alt="Mapora — screenshot 2" loading="lazy" decoding="async">
+            </button>
+            <button class="gallery-thumb" data-gallery-item type="button">
+              <img src="assets/img/mapora-03.jpg" alt="Mapora — screenshot 3" loading="lazy" decoding="async">
+            </button>
+          </div>
+        </div>
+        <div class="project-info">
+          <p class="project-index">02</p>
+          <h2 class="project-title">Mapora</h2>
+          <p class="project-tagline">Interactive 3D map for travelers</p>
+          <p class="project-desc" data-reveal>Explore countries on a 3D globe, look up information about each country,
+            and mark the ones you have already visited.</p>
+          <ul class="task-list" data-reveal>
+            <li>Interactive 3D Interface Development</li>
+            <li>Database Design and Structuring</li>
+            <li>External Services Integration via APIs</li>
+            <li>UI/UX Design and Implementation</li>
+          </ul>
+          <ul class="tag-row" data-reveal>
+            <li>ThreeJS</li>
+            <li>TypeScript</li>
+            <li>UI/UX</li>
+            <li>REST APIs</li>
+            <li>SQLite</li>
+          </ul>
+          <div class="project-links">
+            <a href="https://mapora-tau.vercel.app/" target="_blank" rel="noopener">View Project →</a>
+            <a href="https://github.com/Daniel-B-M/Mapora" target="_blank" rel="noopener">Code →</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ---------- PROJECT 3 ---------- -->
+    <section class="panel panel-project" id="project-3" data-panel aria-label="3D Viewer project">
+      <div class="project-grid panel-inner">
+        <div class="project-media">
+          <figure class="video-frame">
+            <iframe id="yt-player-3" src="https://www.youtube-nocookie.com/embed/6KC9HbBW4rU?rel=0&enablejsapi=1"
+              title="3D Viewer preview" loading="lazy"
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+              referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+          </figure>
+          <div class="gallery" data-gallery aria-label="3D Viewer image gallery">
+            <button class="gallery-thumb" data-gallery-item type="button">
+              <img src="assets/img/3d-viewer-01.jpg" alt="3D Viewer — screenshot 1" loading="lazy" decoding="async">
+            </button>
+            <button class="gallery-thumb" data-gallery-item type="button">
+              <img src="assets/img/3d-viewer-02.jpg" alt="3D Viewer — screenshot 2" loading="lazy" decoding="async">
+            </button>
+            <button class="gallery-thumb" data-gallery-item type="button">
+              <img src="assets/img/3d-viewer-03.jpg" alt="3D Viewer — screenshot 3" loading="lazy" decoding="async">
+            </button>
+          </div>
+        </div>
+        <div class="project-info">
+          <p class="project-index">03</p>
+          <h2 class="project-title">3D Viewer</h2>
+          <p class="project-tagline">Web-based 3D model visualizer</p>
+          <p class="project-desc" data-reveal>An interactive 3D viewer that leverages advanced
+            rendering techniques to deliver high-performance graphics and fluid web interactivity.</p>
+          <ul class="task-list" data-reveal>
+            <li>Developed an interactive 3D model web viewer</li>
+            <li>Implemented an optimized rendering pipeline</li>
+            <li>Integrated 3D model loading and display</li>
+            <li>Designed and implemented UI/UX for the viewer</li>
+          </ul>
+          <ul class="tag-row" data-reveal>
+            <li>React</li>
+            <li>ThreeJS</li>
+            <li>TypeScript</li>
+            <li>TailwindCSS</li>
+          </ul>
+          <div class="project-links">
+            <a href="https://3d-viewer-psi.vercel.app/" target="_blank" rel="noopener">View Project →</a>
+            <a href="https://github.com/Daniel-B-M/3D-Viewer" target="_blank" rel="noopener">Code →</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ---------- RESUME ---------- -->
+    <section class="panel panel-resume" id="resume" data-panel aria-label="Resume">
+      <div class="panel-inner resume-inner">
+        <div class="resume-columns">
+          <div class="resume-col-left">
+            <p class="kicker">05 · Resume</p>
+            <h2 class="section-title">Experience</h2>
+            <ul class="timeline" data-reveal>
+              <li class="timeline-item">
+                <span class="timeline-period">2026</span>
+                <strong>You Really Shouldn't Mix Those Game Jam</strong>
+                <span class="timeline-org">Generation Colombia</span>
+                <p>Rapid prototyping of game mechanics in small teams, with deliverables in under 72 hours.</p>
+              </li>
+              <li class="timeline-item">
+                <span class="timeline-period">2020 — 2025</span>
+                <strong>3D Modeling Team Lead</strong>
+                <span class="timeline-org">Freepik Company</span>
+                <p>Strategic leader with 5 years of experience optimizing data-driven 3D workflows, standardizing
+                  processes and developing multidisciplinary teams to achieve scalable operations.</p>
+              </li>
+            </ul>
+          </div>
+
+          <div class="resume-col-right">
+            <h2 class="section-title">Education</h2>
+            <ul class="timeline" data-reveal>
+              <li class="timeline-item">
+                <span class="timeline-period">05-2026 — 08-2026</span>
+                <strong>Unity Developer</strong>
+                <span class="timeline-org">Generation Colombia</span>
+              </li>
+            </ul>
+
+            <h2 class="section-title">Skills</h2>
+            <ul class="tag-row" data-reveal>
+              <li>Unity 3D</li>
+              <li>C#</li>
+              <li>POO</li>
+              <li>Git</li>
+              <li>3D Modeling</li>
+              <li>PBR Texturing</li>
+              <li>Team Management</li>
+              <li>Workflows Optimization</li>
+              <li>AI tools</li>
+            </ul>
+
+            <a class="btn-cv" href="assets/cv/daniel-bonilla-cv.pdf" download>Download CV ↓</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ---------- CONTACT ---------- -->
+    <section class="panel panel-contact" id="contact" data-panel aria-label="Contact">
+      <div class="panel-inner contact-inner">
+        <p class="kicker">06 · Contact</p>
+        <h2 class="contact-headline" data-reveal>Let's work<br>together.</h2>
+        <p class="contact-note" data-reveal>Open to collaborations, freelance projects, and full-time
+          opportunities.</p>
+        <a class="contact-email" href="mailto:danielbonilla0542@gmail.com">Email. danielbonilla0542@gmail.com</a>
+        <a class="contact-phone" href="tel:+573155170055">Phone. +57 315 517 0055</a>
+        <div class="contact-social">
+          <a href="https://www.linkedin.com/in/daniel-bonilla-m" target="_blank" rel="noopener">LinkedIn</a>
+          <a href="https://github.com/Daniel-B-M" target="_blank" rel="noopener">GitHub</a>
+          <a href="https://dan014.itch.io/" target="_blank" rel="noopener">itch.io</a>
+        </div>
+        <p class="contact-location">[Bogotá, Colombia]</p>
+
+        <footer class="site-footer">
+          <span>© 2026 Daniel Bonilla</span>
+        </footer>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ============================= LIGHTBOX ============================= -->
+  <div class="lightbox" data-lightbox aria-hidden="true" role="dialog" aria-modal="true" aria-label="Enlarged image">
+    <button class="lightbox-close" data-lightbox-close aria-label="Close">✕</button>
+    <button class="lightbox-prev" data-lightbox-prev aria-label="Previous image">‹</button>
+    <img class="lightbox-img" data-lightbox-img src="" alt="">
+    <button class="lightbox-next" data-lightbox-next aria-label="Next image">›</button>
+  </div>
+
+  <script defer src="main.js?v=20260716"></script>
+</body>
+
+</html>
