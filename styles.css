@@ -155,6 +155,81 @@ ul {
   white-space: nowrap;
 }
 
+/* Skills — staggered slide-in from the right, replays every time the section is entered */
+.skills-row li {
+  opacity: 0;
+}
+
+.skills-row.is-revealed li {
+  animation: skillsSlideIn .5s var(--ease-out) both;
+}
+
+@keyframes skillsSlideIn {
+  from {
+    opacity: 0;
+    transform: translateY(-16px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.skills-row li:nth-child(1) {
+  animation-delay: 0ms;
+}
+
+.skills-row li:nth-child(2) {
+  animation-delay: 60ms;
+}
+
+.skills-row li:nth-child(3) {
+  animation-delay: 120ms;
+}
+
+.skills-row li:nth-child(4) {
+  animation-delay: 180ms;
+}
+
+.skills-row li:nth-child(5) {
+  animation-delay: 240ms;
+}
+
+.skills-row li:nth-child(6) {
+  animation-delay: 300ms;
+}
+
+.skills-row li:nth-child(7) {
+  animation-delay: 360ms;
+}
+
+.skills-row li:nth-child(8) {
+  animation-delay: 420ms;
+}
+
+.skills-row li:nth-child(9) {
+  animation-delay: 480ms;
+}
+
+.skills-row li:nth-child(10) {
+  animation-delay: 540ms;
+}
+
+.skills-row li:nth-child(11) {
+  animation-delay: 600ms;
+}
+
+.skills-row li:nth-child(12) {
+  animation-delay: 660ms;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .skills-row.is-revealed li {
+    animation-duration: .01s;
+  }
+}
+
 /* Reveal-on-scroll */
 [data-reveal] {
   opacity: 0;
@@ -210,13 +285,13 @@ ul {
 .nav-logo {
   font-family: var(--display);
   font-weight: 600;
-  font-size: 1.15rem;
+  font-size: 2.9rem;
   letter-spacing: -0.02em;
   flex-shrink: 0;
 }
 
 .nav-logo-dot {
-  color: var(--ink-mute);
+  color: var(--ink);
 }
 
 .nav-tabs {
@@ -287,8 +362,13 @@ ul {
 }
 
 /* Brand-color hover per social link */
-.nav-social a[href*="linkedin"]:hover  { color: #0A66C2; }
-.nav-social a[href*="itch.io"]:hover   { color: #FA5C5C; }
+.nav-social a[href*="linkedin"]:hover {
+  color: #0A66C2;
+}
+
+.nav-social a[href*="itch.io"]:hover {
+  color: #FA5C5C;
+}
 
 .nav-burger {
   display: grid;
@@ -454,35 +534,55 @@ ul {
   }
 }
 
-.scroll-hint {
-  position: absolute;
-  right: var(--gutter);
-  bottom: 6vh;
-  display: flex;
+.hscroll-arrow {
+  position: fixed;
+  top: 50%;
+  z-index: 120;
+  display: none;
   align-items: center;
-  gap: .6rem;
-  font-family: var(--mono);
-  font-size: .72rem;
-  letter-spacing: .06em;
-  text-transform: uppercase;
+  justify-content: center;
+  width: 120px;
+  height: 120px;
   color: var(--ink-mute);
+  opacity: .5;
+  transform: translateY(-50%);
+  transition: opacity .35s var(--ease-out), color .3s var(--ease-out), transform .3s var(--ease-out);
 }
 
-.scroll-hint svg {
-  transition: transform .35s var(--ease-out);
+.hscroll-arrow svg {
+  width: 52px;
+  height: 52px;
 }
 
-.scroll-hint:hover {
+.hscroll-arrow:hover {
+  opacity: 1;
   color: var(--ink);
 }
 
-.scroll-hint:hover svg {
-  transform: translateX(4px);
+.hscroll-arrow.is-hidden {
+  opacity: 0;
+  pointer-events: none;
 }
 
-@media (max-width: 959px) {
-  .scroll-hint {
-    display: none;
+.hscroll-arrow--prev {
+  left: 1.25rem;
+}
+
+.hscroll-arrow--prev:hover {
+  transform: translateY(-50%) translateX(-3px);
+}
+
+.hscroll-arrow--next {
+  right: 1.25rem;
+}
+
+.hscroll-arrow--next:hover {
+  transform: translateY(-50%) translateX(3px);
+}
+
+@media (min-width: 960px) {
+  .hscroll-arrow {
+    display: flex;
   }
 }
 
@@ -662,6 +762,20 @@ ul {
   filter: grayscale(0);
 }
 
+.video-shield {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  background: transparent;
+  border: 0;
+  padding: 0;
+  cursor: pointer;
+}
+
+.video-frame--playing .video-shield {
+  pointer-events: none;
+}
+
 .video-chip {
   position: absolute;
   left: .85rem;
@@ -799,7 +913,7 @@ ul {
    8. Resume panel
    ============================================================= */
 .resume-inner {
-  max-width: 1140px;
+  max-width: 1200px;
   width: 100%;
 }
 
@@ -817,12 +931,17 @@ ul {
 
 @media (min-width: 960px) {
   .resume-columns {
-    grid-template-columns: 1.25fr 0.75fr;
-    gap: 6vw;
+    grid-template-columns: .85fr .65fr .85fr;
+    gap: 2.5vw;
     align-items: start;
+  }
+
+  .resume-col-right {
+    margin-left: 0.5vw;
   }
 }
 
+.resume-col-mid,
 .resume-col-right {
   display: flex;
   flex-direction: column;
@@ -831,20 +950,75 @@ ul {
 }
 
 @media (max-width: 959px) {
+
+  .resume-col-mid,
   .resume-col-right {
     padding-top: 0;
   }
 }
 
+.lang-list {
+  display: flex;
+  flex-direction: column;
+  gap: .6rem;
+  font-size: .95rem;
+}
+
+.lang-list li {
+  display: flex;
+  align-items: baseline;
+  gap: .6rem;
+}
+
+.lang-list li strong {
+  font-weight: 600;
+}
+
+.lang-list li span {
+  font-family: var(--mono);
+  font-size: .72rem;
+  letter-spacing: .05em;
+  text-transform: uppercase;
+  color: var(--ink-mute);
+}
+
+.software-icons {
+  display: flex;
+  flex-wrap: wrap;
+  gap: .85rem;
+}
+
+.software-icons li {
+  width: 52px;
+  height: 52px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.software-icons img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  filter: saturate(.8);
+  transition: transform .35s var(--ease-out), filter .35s var(--ease-out);
+}
+
+.software-icons li:hover img {
+  transform: scale(1.1);
+  filter: saturate(1);
+}
+
 .timeline {
   display: flex;
   flex-direction: column;
-  gap: 1.4rem;
+  gap: 1rem;
+  width: 100%;
 }
 
 .timeline-item {
   border-top: 1px solid var(--line);
-  padding-top: 1rem;
+  padding-top: .8rem;
   display: grid;
   gap: .25rem;
 }
@@ -895,7 +1069,8 @@ ul {
    9. Contact panel
    ============================================================= */
 .contact-inner {
-  max-width: 760px;
+  max-width: 1200px;
+  width: 100%;
 }
 
 .contact-headline {
@@ -987,8 +1162,13 @@ ul {
 }
 
 /* Brand-color hover per social link */
-.contact-social a[href*="linkedin"]:hover { color: #0A66C2; }
-.contact-social a[href*="itch.io"]:hover  { color: #FA5C5C; }
+.contact-social a[href*="linkedin"]:hover {
+  color: #0A66C2;
+}
+
+.contact-social a[href*="itch.io"]:hover {
+  color: #FA5C5C;
+}
 
 .contact-location {
   color: var(--ink-mute);

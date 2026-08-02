@@ -112,6 +112,82 @@
     }, { passive: false });
   }
 
+  /* ---------- Left/right edge navigation arrows ---------- */
+  function initHscrollArrows() {
+    var track = $("[data-hscroll]");
+    var prevBtn = $("[data-hscroll-prev]");
+    var nextBtn = $("[data-hscroll-next]");
+    if (!track || !prevBtn || !nextBtn) return;
+    var panels = $$("[data-panel]");
+
+    function currentIndex() {
+      var mid = track.scrollLeft + track.clientWidth / 2;
+      var idx = 0;
+      panels.forEach(function (p, i) {
+        if (p.offsetLeft <= mid) idx = i;
+      });
+      return idx;
+    }
+
+    function update() {
+      if (!isDesktopScroll()) return;
+      var atStart = track.scrollLeft <= 2;
+      var atEnd = track.scrollLeft >= track.scrollWidth - track.clientWidth - 2;
+      prevBtn.classList.toggle("is-hidden", atStart);
+      nextBtn.classList.toggle("is-hidden", atEnd);
+    }
+
+    function goTo(index) {
+      if (!panels[index]) return;
+      panels[index].scrollIntoView({
+        behavior: reduced ? "auto" : "smooth",
+        inline: "start",
+        block: "start"
+      });
+    }
+
+    prevBtn.addEventListener("click", function () { goTo(currentIndex() - 1); });
+    nextBtn.addEventListener("click", function () { goTo(currentIndex() + 1); });
+
+    update();
+    track.addEventListener("scroll", update, { passive: true });
+    window.addEventListener("resize", update);
+  }
+
+  /* ---------- Skills stagger animation: replays every time it's scrolled into view ---------- */
+  function initSkillsAnimation() {
+    var el = $(".skills-row");
+    var track = $("[data-hscroll]");
+    if (!el) return;
+
+    var observer = null;
+    function build() {
+      if (observer) observer.disconnect();
+      var root = isDesktopScroll() && track ? track : null;
+      observer = new IntersectionObserver(function (entries) {
+        entries.forEach(function (entry) {
+          el.classList.toggle("is-revealed", entry.isIntersecting);
+        });
+      }, { root: root, threshold: 0.3 });
+      observer.observe(el);
+    }
+
+    build();
+    var to;
+    window.addEventListener("resize", function () {
+      clearTimeout(to);
+      to = setTimeout(build, 300);
+    });
+  }
+
+  /* ---------- Land on #about by default (Resume sits before it in the DOM) ---------- */
+  function initInitialPosition() {
+    var target = location.hash ? document.querySelector(location.hash) : null;
+    if (!target) target = $("#about");
+    if (!target) return;
+    target.scrollIntoView({ behavior: "auto", inline: "start", block: "start" });
+  }
+
   /* ---------- Reveal on scroll ---------- */
   function initReveals() {
     var els = $$("[data-reveal], [data-reveal-mask]");
@@ -195,10 +271,24 @@
     });
   }
 
-  /* ---------- YouTube IFrame API: grayscale toggle on play/pause ---------- */
+  /* ---------- YouTube IFrame API: grayscale toggle + scroll-safe shield ---------- */
   function initYTPlayers() {
     var iframes = $$("iframe[id^='yt-player-']");
     if (!iframes.length) return;
+    var players = {};
+
+    // Shield sits over the iframe so wheel/scroll keeps working on hover;
+    // a click starts playback and hands control over to the real YouTube UI.
+    $$("[data-video-shield]").forEach(function (shield) {
+      shield.addEventListener("click", function () {
+        var frame = shield.closest(".video-frame");
+        var iframe = frame ? frame.querySelector("iframe[id^='yt-player-']") : null;
+        var player = iframe ? players[iframe.id] : null;
+        if (player && typeof player.playVideo === "function") {
+          player.playVideo();
+        }
+      });
+    });
 
     // Load the YouTube IFrame API script
     var tag = document.createElement("script");
@@ -209,7 +299,7 @@
     window.onYouTubeIframeAPIReady = function () {
       iframes.forEach(function (iframe) {
         var frame = iframe.closest(".video-frame");
-        new YT.Player(iframe.id, {
+        players[iframe.id] = new YT.Player(iframe.id, {
           events: {
             onStateChange: function (event) {
               if (!frame) return;
@@ -229,11 +319,14 @@
   }
 
   function boot() {
+    safe(initInitialPosition, "initInitialPosition");
     safe(initNavSolid, "initNavSolid");
     safe(initMobileNav, "initMobileNav");
     safe(initAnchorNav, "initAnchorNav");
     safe(initScrollSpy, "initScrollSpy");
     safe(initHorizontalWheel, "initHorizontalWheel");
+    safe(initHscrollArrows, "initHscrollArrows");
+    safe(initSkillsAnimation, "initSkillsAnimation");
     safe(initReveals, "initReveals");
     safe(initLightbox, "initLightbox");
     safe(initYTPlayers, "initYTPlayers");
