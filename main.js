@@ -490,7 +490,52 @@
     setLanguage(initialLang);
   }
 
+  /* ---------- Dark / Light Theme Switcher ---------- */
+  function initThemeSwitcher() {
+    var buttons = $$("[data-theme-toggle]");
+    if (!buttons.length) return;
+
+    function getCurrentTheme() {
+      var attr = document.documentElement.getAttribute("data-theme");
+      if (attr) return attr;
+      return matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
+    }
+
+    function setTheme(theme, isUserAction) {
+      document.documentElement.setAttribute("data-theme", theme);
+      if (isUserAction) {
+        try { localStorage.setItem("theme", theme); } catch (e) {}
+      }
+      var label = theme === "dark" ? "Switch to light theme" : "Switch to dark theme";
+      buttons.forEach(function (btn) {
+        btn.setAttribute("aria-label", label);
+      });
+    }
+
+    var currentTheme = getCurrentTheme();
+    setTheme(currentTheme, false);
+
+    buttons.forEach(function (btn) {
+      btn.addEventListener("click", function () {
+        var active = getCurrentTheme();
+        var next = active === "dark" ? "light" : "dark";
+        setTheme(next, true);
+      });
+    });
+
+    try {
+      matchMedia("(prefers-color-scheme: dark)").addEventListener("change", function (e) {
+        var stored = null;
+        try { stored = localStorage.getItem("theme"); } catch (err) {}
+        if (!stored) {
+          setTheme(e.matches ? "dark" : "light", false);
+        }
+      });
+    } catch (e) {}
+  }
+
   function boot() {
+    safe(initThemeSwitcher, "initThemeSwitcher");
     safe(initI18n, "initI18n");
     safe(initInitialPosition, "initInitialPosition");
     safe(initNavSolid, "initNavSolid");
