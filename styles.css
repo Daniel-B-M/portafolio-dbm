@@ -192,11 +192,13 @@ ul {
   border-radius: 999px;
   color: var(--ink-soft);
   white-space: nowrap;
+  font-weight: 500;
 }
 
 /* Skills — staggered slide-in from the right, replays every time the section is entered */
 .skills-row li {
   opacity: 0;
+  font-weight: 500;
 }
 
 .skills-row.is-revealed li {
