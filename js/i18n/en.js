@@ -80,6 +80,16 @@ export default {
   p4_task_4: "Designed and implemented UI/UX for the viewer",
   p4_view_project: "View Project →",
 
+  project_05_index: "Project · 05",
+  p5_tagline: "Interactive 3D map for travelers",
+  p5_desc:
+    "Explore countries on a 3D globe, look up information about each country, and mark the ones you have already visited.",
+  p5_task_1: "Interactive 3D Interface Development",
+  p5_task_2: "Database Design and Structuring",
+  p5_task_3: "External Services Integration via APIs",
+  p5_task_4: "UI/UX Design and Implementation",
+  p5_view_project: "View Project →",
+
   contact_kicker: "Contact",
   contact_headline: "Let's work<br>together.",
   contact_note:
