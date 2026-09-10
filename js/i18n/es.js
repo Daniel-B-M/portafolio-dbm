@@ -77,6 +77,16 @@ export default {
   p4_task_4: "Diseño e implementación de la UI/UX para el visualizador",
   p4_view_project: "Ver Proyecto →",
 
+  project_05_index: "Proyecto · 05",
+  p5_tagline: "Mapa 3D interactivo para viajeros",
+  p5_desc:
+    "Explora países en un globo 3D, consulta información de cada país y marca los que ya has visitado.",
+  p5_task_1: "Desarrollo de interfaz 3D interactiva",
+  p5_task_2: "Diseño y estructuración de base de datos",
+  p5_task_3: "Integración de servicios externos mediante APIs",
+  p5_task_4: "Diseño e implementación de UI/UX",
+  p5_view_project: "Ver Proyecto →",
+
   contact_kicker: "Contacto",
   contact_headline: "Trabajemos<br>juntos.",
   contact_note:
