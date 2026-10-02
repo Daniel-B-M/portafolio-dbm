@@ -1,4 +1,4 @@
-import { initI18n } from "./i18n/index.js";
+import { initI18n, t, forEachLanguage } from "./i18n/index.js";
 
 (function () {
   "use strict";
@@ -156,36 +156,48 @@ import { initI18n } from "./i18n/index.js";
     window.addEventListener("resize", update);
   }
 
-  /* ---------- Skills stagger animation: replays every time it's scrolled into view ---------- */
-  function initSkillsAnimation() {
-    var el = $(".skills-row");
-    var track = $("[data-hscroll]");
-    if (!el) return;
+  /* ---------- Shared top offset for every panel (desktop) ----------
+     All panels start at the same height in every language: the offset centres
+     the tallest panel content (measured in each locale) and everything else
+     hangs from that same line, so switching EN/ES never moves the top. */
+  function initPanelOffset() {
+    var root = document.documentElement;
+    var panels = $$("[data-panel]");
+    if (!panels.length) return;
 
-    var observer = null;
-    function build() {
-      if (observer) observer.disconnect();
-      var root = isDesktopScroll() && track ? track : null;
-      observer = new IntersectionObserver(function (entries) {
-        entries.forEach(function (entry) {
-          el.classList.toggle("is-revealed", entry.isIntersecting);
+    function update() {
+      if (!isDesktopScroll()) {
+        root.style.removeProperty("--panel-top");
+        return;
+      }
+      root.style.setProperty("--panel-top", "0px");
+      var slack = Infinity;
+      forEachLanguage(function () {
+        panels.forEach(function (panel) {
+          var inner = $(":scope > .panel-inner", panel);
+          if (!inner) return;
+          slack = Math.min(slack, panel.clientHeight - inner.offsetHeight);
         });
-      }, { root: root, threshold: 0.3 });
-      observer.observe(el);
+      });
+      root.style.setProperty("--panel-top", Math.max(0, Math.floor(slack / 2)) + "px");
     }
 
-    build();
     var to;
-    window.addEventListener("resize", function () {
+    function schedule() {
       clearTimeout(to);
-      to = setTimeout(build, 300);
-    });
+      to = setTimeout(update, 100);
+    }
+
+    update();
+    if (document.fonts && document.fonts.ready) document.fonts.ready.then(update);
+    var track = $("[data-hscroll]");
+    if (track && "ResizeObserver" in window) new ResizeObserver(schedule).observe(track);
+    else window.addEventListener("resize", schedule);
   }
 
-  /* ---------- Land on #about by default (Resume sits before it in the DOM) ---------- */
+  /* ---------- Honour a #section link on load (the track scrolls horizontally) ---------- */
   function initInitialPosition() {
     var target = location.hash ? document.querySelector(location.hash) : null;
-    if (!target) target = $("#about");
     if (!target) return;
     target.scrollIntoView({ behavior: "auto", inline: "start", block: "start" });
   }
@@ -231,7 +243,7 @@ import { initI18n } from "./i18n/index.js";
       currentIndex = (index + currentGroup.length) % currentGroup.length;
       var item = currentGroup[currentIndex];
       imgEl.src = item.src;
-      imgEl.alt = item.alt || "";
+      imgEl.alt = item.img.alt || "";
     }
 
     function open(group, index) {
@@ -252,7 +264,7 @@ import { initI18n } from "./i18n/index.js";
       var thumbs = $$("[data-gallery-item]", gallery);
       var group = thumbs.map(function (btn) {
         var img = $("img", btn);
-        return { src: img.src, alt: img.alt };
+        return { src: img.src, img: img };
       });
       thumbs.forEach(function (btn, i) {
         btn.addEventListener("click", function () { open(group, i); });
@@ -336,11 +348,17 @@ import { initI18n } from "./i18n/index.js";
       if (isUserAction) {
         try { localStorage.setItem("theme", theme); } catch (e) {}
       }
-      var label = theme === "dark" ? "Switch to light theme" : "Switch to dark theme";
+      updateLabel();
+    }
+
+    function updateLabel() {
+      var label = t(getCurrentTheme() === "dark" ? "a11y_theme_to_light" : "a11y_theme_to_dark");
       buttons.forEach(function (btn) {
         btn.setAttribute("aria-label", label);
       });
     }
+
+    document.addEventListener("langchange", updateLabel);
 
     var currentTheme = getCurrentTheme();
     setTheme(currentTheme, false);
@@ -367,6 +385,7 @@ import { initI18n } from "./i18n/index.js";
   function boot() {
     safe(initThemeSwitcher, "initThemeSwitcher");
     safe(initI18n, "initI18n");
+    safe(initPanelOffset, "initPanelOffset");
     safe(initInitialPosition, "initInitialPosition");
     safe(initNavSolid, "initNavSolid");
     safe(initMobileNav, "initMobileNav");
@@ -374,7 +393,6 @@ import { initI18n } from "./i18n/index.js";
     safe(initScrollSpy, "initScrollSpy");
     safe(initHorizontalWheel, "initHorizontalWheel");
     safe(initHscrollArrows, "initHscrollArrows");
-    safe(initSkillsAnimation, "initSkillsAnimation");
     safe(initReveals, "initReveals");
     safe(initLightbox, "initLightbox");
     safe(initYTPlayers, "initYTPlayers");

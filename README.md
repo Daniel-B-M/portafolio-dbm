@@ -6,13 +6,12 @@ and ES modules.
 ## Run locally
 
 ```bash
-python dev_server.py
+python -m http.server 8000 --bind 127.0.0.1
 ```
 
-Serves <http://127.0.0.1:8000> with no-cache headers and automatic reload on
-save. Any static server works too (`python -m http.server`), but you lose live
-reload. Opening `index.html` from the file system will **not** work — ES modules
-need `http(s)://`.
+Then open <http://127.0.0.1:8000>. There is no live reload, so hard-refresh
+after editing. Opening `index.html` from the file system will **not** work — ES
+modules need `http(s)://`.
 
 ## Structure
 
@@ -27,14 +26,16 @@ js/
     es.js         Spanish strings
 assets/           Images, CV, favicon
 .htaccess         Production caching / MIME / headers (Apache / LiteSpeed)
-dev_server.py     Local dev server with live reload
 ```
 
 ## Editing content
 
 - **Text**: edit `js/i18n/en.js` and `js/i18n/es.js`. For `en`, also update the
   matching string in `index.html` so the page reads correctly before JS runs.
-  Elements opt in with `data-i18n="key"` (or `data-i18n-href="key"` for links).
+  Elements opt in with `data-i18n="key"` (or `data-i18n-href="key"` for links,
+  and `data-i18n-attr="aria-label:key; alt:key2"` for attributes such as
+  `aria-label`, `alt`, `title` or a meta tag's `content`). Every key must exist
+  in both locale files.
 - **Projects**: each is a `<section class="panel panel-project" id="project-N">`
   in `index.html`, plus its `pN_*` keys in both locale files. The nav links and
   scroll-spy pick up new panels automatically.

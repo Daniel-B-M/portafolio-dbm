@@ -195,82 +195,6 @@ ul {
   font-weight: 500;
 }
 
-/* Skills — staggered slide-in from the right, replays every time the section is entered */
-.skills-row li {
-  opacity: 0;
-  font-weight: 500;
-}
-
-.skills-row.is-revealed li {
-  animation: skillsSlideIn .5s var(--ease-out) both;
-}
-
-@keyframes skillsSlideIn {
-  from {
-    opacity: 0;
-    transform: translateY(-16px);
-  }
-
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-.skills-row li:nth-child(1) {
-  animation-delay: 0ms;
-}
-
-.skills-row li:nth-child(2) {
-  animation-delay: 60ms;
-}
-
-.skills-row li:nth-child(3) {
-  animation-delay: 120ms;
-}
-
-.skills-row li:nth-child(4) {
-  animation-delay: 180ms;
-}
-
-.skills-row li:nth-child(5) {
-  animation-delay: 240ms;
-}
-
-.skills-row li:nth-child(6) {
-  animation-delay: 300ms;
-}
-
-.skills-row li:nth-child(7) {
-  animation-delay: 360ms;
-}
-
-.skills-row li:nth-child(8) {
-  animation-delay: 420ms;
-}
-
-.skills-row li:nth-child(9) {
-  animation-delay: 480ms;
-}
-
-.skills-row li:nth-child(10) {
-  animation-delay: 540ms;
-}
-
-.skills-row li:nth-child(11) {
-  animation-delay: 600ms;
-}
-
-.skills-row li:nth-child(12) {
-  animation-delay: 660ms;
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .skills-row.is-revealed li {
-    animation-duration: .01s;
-  }
-}
-
 /* Reveal-on-scroll */
 [data-reveal] {
   opacity: 0;
@@ -428,10 +352,6 @@ ul {
 /* Brand-color hover per social link */
 .nav-social a[href*="linkedin"]:hover {
   color: #0A66C2;
-}
-
-.nav-social a[href*="itch.io"]:hover {
-  color: #FA5C5C;
 }
 
 /* Language Switcher */
@@ -666,11 +586,13 @@ ul {
     overflow-x: hidden;
   }
 
+  /* Sized by its content and anchored at the same top offset on every panel
+     and in every language (--panel-top, set by initPanelOffset in main.js),
+     so switching EN/ES never shifts where content starts — longer text only
+     grows downwards. Without JS it falls back to plain vertical centring. */
   .panel-inner {
-    height: 65vh;
-    min-height: 480px;
-    max-height: 680px;
-    margin-block: auto;
+    margin-top: var(--panel-top, auto);
+    margin-bottom: auto;
     margin-inline: auto;
     width: 100%;
     display: flex;
@@ -756,7 +678,8 @@ ul {
 .about-title {
   font-family: var(--display);
   font-weight: 700;
-  font-size: clamp(3rem, 11vw, 9rem);
+  /* the vh term shrinks the name on short screens so the panel never scrolls */
+  font-size: clamp(3rem, min(11vw, 17vh), 9rem);
   line-height: .88;
   letter-spacing: -0.03em;
   margin: 1.1rem 0 .9rem;
@@ -772,7 +695,33 @@ ul {
   padding: .35rem .85rem;
   border: 1px solid var(--ink);
   border-radius: 999px;
+}
+
+/* Role pill + focus areas: the pill is the title, the focus line reads as secondary */
+.about-role-row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: .6rem 1rem;
   margin-bottom: 1.7rem;
+}
+
+.about-focus {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  font-family: var(--mono);
+  font-size: .75rem;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+  color: var(--ink-mute);
+}
+
+.about-focus::before {
+  content: "";
+  width: 1.75rem;
+  height: 1px;
+  background: var(--line-strong);
 }
 
 .about-bio {
@@ -802,6 +751,11 @@ ul {
 
   .about-inner {
     flex: 1 1 56%;
+  }
+
+  /* .about-inner is a .panel-inner nested in another: only the outer one takes the panel offset */
+  .about-inner.panel-inner {
+    margin-top: 0;
   }
 }
 
@@ -1229,6 +1183,11 @@ ul {
   transform: translateY(-3px);
 }
 
+/* About hero copy of the button: same look, spacing comes from the bio above */
+.btn-cv--about {
+  margin-top: 0;
+}
+
 /* =============================================================
    9. Contact panel
    ============================================================= */
@@ -1239,7 +1198,7 @@ ul {
 
 .contact-headline {
   font-family: var(--display);
-  font-size: clamp(2.6rem, 7vw, 5rem);
+  font-size: clamp(2.6rem, min(7vw, 11vh), 5rem);
   line-height: .95;
   margin: .7rem 0 1.1rem;
 }
@@ -1334,10 +1293,33 @@ ul {
   color: #FA5C5C;
 }
 
+.contact-social a[href*="artstation"]:hover {
+  color: #13AFF0;
+}
+
 .contact-location {
   color: var(--ink-mute);
   font-size: .85rem;
   margin-bottom: 2.6rem;
+}
+
+/* Short desktop screens: tighten vertical spacing so panels fit without scrolling */
+@media (min-width: 960px) and (max-height: 640px) {
+  .panel-resume .btn-cv {
+    margin-top: 1.4rem;
+  }
+
+  .contact-phone {
+    margin-bottom: 1.3rem;
+  }
+
+  .contact-social {
+    margin-bottom: 1.3rem;
+  }
+
+  .contact-location {
+    margin-bottom: 1.4rem;
+  }
 }
 
 .site-footer {
