@@ -50,7 +50,7 @@ export default {
   lang_spanish_level: "Native",
   lang_english: "English",
   cv_download: "Download CV ↓",
-  cv_href: "assets/cv/CV-Daniel-Bonilla-Unity-Dev-EN.pdf",
+  cv_href: "assets/cv/CV-Daniel-Bonilla-Dev-EN.pdf",
 
   about_kicker: "Portfolio · 2026",
   a11y_section_about: "About me",

@@ -47,7 +47,7 @@ export default {
   lang_spanish_level: "Nativo",
   lang_english: "Inglés",
   cv_download: "Descargar CV ↓",
-  cv_href: "assets/cv/CV-Daniel-Bonilla-Unity-Dev-ES.pdf",
+  cv_href: "assets/cv/CV-Daniel-Bonilla-Dev-ES.pdf",
 
   about_kicker: "Portafolio · 2026",
   a11y_section_about: "Sobre mí",
